@@ -1,64 +1,23 @@
-name: Daily Java/Spring Tip Update
-
+name: Daily Tip Update
 on:
   schedule:
     - cron: '0 0 * * *'
   workflow_dispatch:
-
 jobs:
-  update-tip:
+  update:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-
-      - name: Update README with daily tip
-        run: |
-          TODAY=$(date -u +%Y-%m-%d)
-          TIP=$(jq -r ".[] | select(.date == \"$TODAY\") | .tip" tips.json)
-          TOPIC=$(jq -r ".[] | select(.date == \"$TODAY\") | .topic" tips.json)
-          
-          if [ -z "$TIP" ]; then
-            TIP=$(jq -r '.[0].tip' tips.json)
-            TOPIC=$(jq -r '.[0].topic' tips.json)
-          fi
-          
-          cat > README.md <<'EOF'
-# Daily Java/Spring Tip
-
-### Tip for $TODAY
-**Topic:** $TOPIC
-
-$TIP
-
----
-
-## 📚 About This Project
-
-This project helps you learn Java and Spring Framework with daily tips!
-
-### Instructions
-
-1. **Clone the repository**: `git clone https://github.com/shamnaz009/java-spring-learning`
-2. **Navigate to the project directory**: `cd java-spring-learning`
-3. **View today's tip**: Check the README.md for today's learning topic
-4. **Add your own tips**: Edit `tips.json` to add more learning tips
-
-### How It Works
-- A new tip appears automatically every day at midnight UTC
-- Tips are sourced from `tips.json`
-- The README updates automatically via GitHub Actions
-
-Happy Learning! 🎓
-EOF
-
-          sed -i "s/\$TODAY/$TODAY/g" README.md
-          sed -i "s/\$TOPIC/$TOPIC/g" README.md
-          sed -i "s/\$TIP/$TIP/g" README.md
-
-      - name: Commit and push changes
-        run: |
-          git config --local user.email "action@github.com"
-          git config --local user.name "GitHub Action"
+      - run: |
+          DATE=$(date -u +%Y-%m-%d)
+          echo "# Daily Tip - $DATE" > README.md
+          echo "" >> README.md
+          TIP=$(jq -r ".[] | select(.date == \"$DATE\") | .tip" tips.json)
+          if [ -z "$TIP" ]; then TIP=$(jq -r '.[0].tip' tips.json); fi
+          echo "$TIP" >> README.md
+      - run: |
+          git config user.email "action@github.com"
+          git config user.name "GitHub Action"
           git add README.md
-          git commit -m "Update daily tip for $(date -u +%Y-%m-%d)" || true
+          git commit -m "Daily tip update" || true
           git push
