@@ -3,21 +3,28 @@ on:
   schedule:
     - cron: '0 0 * * *'
   workflow_dispatch:
+
 jobs:
   update:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - run: |
+      - uses: actions/checkout@v4
+
+      - name: Update README
+        run: |
           DATE=$(date -u +%Y-%m-%d)
           echo "# Daily Tip - $DATE" > README.md
-          echo "" >> README.md
           TIP=$(jq -r ".[] | select(.date == \"$DATE\") | .tip" tips.json)
-          if [ -z "$TIP" ]; then TIP=$(jq -r '.[0].tip' tips.json); fi
+          if [ -z "$TIP" ]; then
+            TIP=$(jq -r '.[0].tip' tips.json)
+          fi
+          echo "" >> README.md
           echo "$TIP" >> README.md
-      - run: |
+
+      - name: Commit changes
+        run: |
           git config user.email "action@github.com"
           git config user.name "GitHub Action"
           git add README.md
-          git commit -m "Daily tip update" || true
+          git commit -m "Update daily tip" || true
           git push
