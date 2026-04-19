@@ -1,0 +1,52 @@
+[
+  {
+    "date": "2026-04-19",
+    "topic": "Dependency Injection",
+    "tip": "Always use dependency injection in your Spring applications to promote loose coupling and enhance testability."
+  },
+  {
+    "date": "2026-04-20",
+    "topic": "Spring Boot Auto-Configuration",
+    "tip": "Spring Boot's auto-configuration automatically configures Spring application based on jar dependencies on the classpath. Use @SpringBootApplication to enable it."
+  },
+  {
+    "date": "2026-04-21",
+    "topic": "RESTful API Design",
+    "tip": "Design your REST APIs with proper HTTP methods (GET, POST, PUT, DELETE) and meaningful status codes for better client communication."
+  },
+  {
+    "date": "2026-04-22",
+    "topic": "Spring Data JPA",
+    "tip": "Leverage Spring Data JPA repositories to reduce boilerplate code. Extend JpaRepository for automatic CRUD operations and custom query methods."
+  },
+  {
+    "date": "2026-04-23",
+    "topic": "Exception Handling",
+    "tip": "Use @ExceptionHandler and @ControllerAdvice in Spring to centralize exception handling and provide consistent error responses."
+  },
+  {
+    "date": "2026-04-24",
+    "topic": "Bean Scopes",
+    "tip": "Understand Spring bean scopes: Singleton (default), Prototype, Request, Session, and Application. Choose the right scope for your use case."
+  },
+  {
+    "date": "2026-04-25",
+    "topic": "Aspect-Oriented Programming",
+    "tip": "Use AOP with Spring to implement cross-cutting concerns like logging, security, and transactions without cluttering your business logic."
+  },
+  {
+    "date": "2026-04-26",
+    "topic": "Spring Security",
+    "tip": "Implement authentication and authorization using Spring Security. Use SecurityFilterChain to configure your security settings."
+  },
+  {
+    "date": "2026-04-27",
+    "topic": "Testing in Spring",
+    "tip": "Use @SpringBootTest and @MockBean for integration testing. Mock external dependencies to keep your tests fast and isolated."
+  },
+  {
+    "date": "2026-04-28",
+    "topic": "Actuator Endpoints",
+    "tip": "Enable Spring Boot Actuator to expose operational endpoints for health checks, metrics, and application monitoring in production."
+  }
+]
